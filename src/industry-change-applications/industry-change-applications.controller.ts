@@ -3,20 +3,10 @@ import { IndustryChangeApplicationsService } from './industry-change-application
 import { CreateIndustryChangeApplicationDto, IndustryChangeApplication } from '../dto/create-industry-change-application.dto';
 
 
-@Controller('industry-change-applications')
+@Controller('resident-register/industry-change-applications')
 export class IndustryChangeApplicationsController {
     constructor(private readonly industryChangeApplicationsService: IndustryChangeApplicationsService) { }
 
-    @Get()
-    async getResidents(): Promise<any[]> {
-        try {
-            const data = await this.industryChangeApplicationsService.getResidents();
-            return data;
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            throw error;
-        }
-    }
     @Get()
     async getIndustryChangeApplications(@Query('statuses') statuses: string[], @Query('residentSub') residentSub: string): Promise<IndustryChangeApplication[]> {
         try {

@@ -8,32 +8,6 @@ import { CreateIndustryChangeApplicationDto, IndustryChangeApplication } from '.
 export class IndustryChangeApplicationsService {
     constructor() { }
 
-    async getResidents(): Promise<any> {
-        const client = new Client({
-            host: process.env.DB_HOST,
-            port: parseInt(process.env.DB_PORT, 10),
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME,
-        });
-
-        await client.connect();
-        try {
-            const query = `SELECT * FROM residents;`;
-            const result = await client.query(query);
-            if (result.rows.length === 0) {
-                throw new BadRequestException('Industry change application not found');
-            }
-            return result.rows;
-        } catch (error) {
-            console.error('Error fetching data from database:', error);
-            throw error;
-        } finally {
-            if (client) {
-                await client.end();
-            }
-        }
-    }
     async getIndustryChangeApplication(id: string): Promise<IndustryChangeApplication> {
         const client = new Client({
             host: process.env.DB_HOST,
